@@ -19,12 +19,14 @@ SYSTEM_TYPE = "SYSTEM"
 ACT_ATTR = "ACT"
 BODY_ATTR = "BODY"
 CIRCUIT_ATTR = "CIRCUIT"
+COOL_ATTR = "COOL"
 COMUART_ATTR = "COMUART"
 DLY_ATTR = "DLY"
 ENABLE_ATTR = "ENABLE"
 FEATR_ATTR = "FEATR"
 GPM_ATTR = "GPM"
 HEATER_ATTR = "HEATER"
+HITMP_ATTR = "HITMP"
 HNAME_ATTR = "HNAME"
 HTMODE_ATTR = "HTMODE"
 LISTORD_ATTR = "LISTORD"
@@ -93,15 +95,16 @@ BODY_ATTRIBUTES = {
     "ACT4",  # (int) ???
     "FILTER",  # (objnam) Circuit object that filter this body
     HEATER_ATTR,  # (objnam)
-    "HITMP",  # (int) maximum temperature to set
+    HITMP_ATTR,  # (int) setpoint for cooling
     HNAME_ATTR,  # equals to OBJNAM
-    HTMODE_ATTR,  # (int) >0 if currently heating, 0 if not
+    HTMODE_ATTR,  # (int) >0 and <9 if currently heating, 9 if cooling, 0 if not
     "HTSRC",  # (objnam) the heating source (or '00000')
     LISTORD_ATTR,  # (int) used to order in UI
     LOTMP_ATTR,  # (int) desired temperature
     LSTTMP_ATTR,  # (int) last recorded temperature
     "MANHT",  # Manual heating ???
     "MANUAL",  # (int) ???
+    MODE_ATTR, # pepresets what heater mode is selected (e.g. heatpump, solar prefered, etc)
     PARENT_ATTR,  # (objnam) parent object
     "PRIM",  # (int) ???
     READY_ATTR,  # (ON/OFF) ???
@@ -198,7 +201,7 @@ EXTINSTR_ATTRIBUTES = {
     SUBTYP_ATTR,  # only seen 'COVER'
 }
 
-# no idea what this represents
+# represents a feature (fountain, spillway, spa blower, etc.)
 FEATR_ATTRIBUTES = {
     HNAME_ATTR,
     LISTORD_ATTR,
@@ -211,8 +214,8 @@ FEATR_ATTRIBUTES = {
 HEATER_ATTRIBUTES = {
     BODY_ATTR,  # the objnam of the body the pump serves or a list (separated by a space)
     "BOOST",  # (int) ??
-    COMUART_ATTR,  # X25 related?
-    "COOL",  # (ON/OFF)
+    COMUART_ATTR,  # RS485 device address
+    COOL_ATTR,  # (ON/OFF) ON = Cooling Available, COOL = No Cooling
     DLY_ATTR,  # (int) ??
     HNAME_ATTR,  # equals to OBJNAM
     HTMODE_ATTR,  # (int) ??
@@ -335,7 +338,7 @@ SCHED_ATTRIBUTES = {
     "DNTSTP",  # 'ON' or 'OFF" means Don't Stop. Set to ON to never end...
     HEATER_ATTR,  # set to a HEATER objnam is the schedule should trigger heating, '00000' for off, '00001' for Don't Change
     HNAME_ATTR,  # same as objnam
-    "HITMP",  # number but not sure
+    HITMP_ATTR,  # Cooling setpoint
     LISTORD_ATTR,  # number likely used to order things in UI
     LOTMP_ATTR,  # number. when heater is set, that is the desired temperature
     "SINGLE",  # 'ON' if the schedule is not to repeat

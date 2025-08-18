@@ -4,6 +4,7 @@ import logging
 from typing import Any, Optional
 
 from homeassistant.components.binary_sensor import DOMAIN as BINARY_SENSOR_DOMAIN
+from homeassistant.components.cover import DOMAIN as CLIMATE_DOMAIN
 from homeassistant.components.cover import DOMAIN as COVER_DOMAIN
 from homeassistant.components.light import DOMAIN as LIGHT_DOMAIN
 from homeassistant.components.number import DOMAIN as NUMBER_DOMAIN
@@ -31,6 +32,7 @@ from .pyintellicenter import (
     GPM_ATTR,
     HEATER_ATTR,
     HEATER_TYPE,
+    HITMP_ATTR,
     HTMODE_ATTR,
     LISTORD_ATTR,
     LOTMP_ATTR,
@@ -68,6 +70,7 @@ PLATFORMS = [
     WATER_HEATER_DOMAIN,
     NUMBER_DOMAIN,
     COVER_DOMAIN,
+    CLIMATE_DOMAIN,
 ]
 
 # -------------------------------------------------------------------------------------
@@ -85,16 +88,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         BODY_TYPE: {
             SNAME_ATTR,
             HEATER_ATTR,
+            HITMP_ATTR,
             HTMODE_ATTR,
             LOTMP_ATTR,
             LSTTMP_ATTR,
+            MODE_ATTR,
             STATUS_ATTR,
             VOL_ATTR,
         },
         CIRCUIT_TYPE: {SNAME_ATTR, STATUS_ATTR, USE_ATTR, SUBTYP_ATTR, FEATR_ATTR},
         CIRCGRP_TYPE: {CIRCUIT_ATTR},
         CHEM_TYPE: {},
-        HEATER_TYPE: {SNAME_ATTR, BODY_ATTR, LISTORD_ATTR},
+        HEATER_TYPE: {SNAME_ATTR, SUBTYP_ATTR, BODY_ATTR, LISTORD_ATTR},
         PUMP_TYPE: {SNAME_ATTR, STATUS_ATTR, PWR_ATTR, RPM_ATTR, GPM_ATTR},
         SENSE_TYPE: {SNAME_ATTR, SOURCE_ATTR},
         SCHED_TYPE: {SNAME_ATTR, ACT_ATTR, VACFLO_ATTR},
